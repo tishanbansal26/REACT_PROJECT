@@ -31,10 +31,11 @@ const About = () => {
               </div>
             </div>
             <div className="col-lg-6">
-              <img 
-                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80" 
-                alt="Fashion Workshop" 
+              <img
+                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80"
+                alt="Fashion Workshop"
                 className="about-hero-image"
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/CORELINE.png'; }}
               />
             </div>
           </div>
@@ -46,10 +47,11 @@ const About = () => {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-lg-6">
-              <img 
-                src="https://images.unsplash.com/photo-1606759615996-aa88304c4b1f?auto=format&fit=crop&w=800&q=80" 
-                alt="Our Workshop" 
+              <img
+                src="https://images.unsplash.com/photo-1606759615996-aa88304c4b1f?auto=format&fit=crop&w=800&q=80"
+                alt="Our Workshop"
                 className="about-story-image"
+                onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/CORELINE.png'; }}
               />
             </div>
             <div className="col-lg-6">
