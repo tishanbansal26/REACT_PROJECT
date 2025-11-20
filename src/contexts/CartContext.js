@@ -1,4 +1,14 @@
 import React, { createContext, useState, useContext, useEffect } from 'react';
+import { db } from '../firebase/config';
+import { useAuth } from './AuthContext';
+import {
+  collection,
+  doc,
+  setDoc,
+  getDoc,
+  deleteDoc,
+  onSnapshot
+} from 'firebase/firestore';
 
 const CartContext = createContext();
 
@@ -11,14 +21,51 @@ export const useCart = () => {
 };
 
 export const CartProvider = ({ children }) => {
-  const [cart, setCart] = useState(() => {
-    const savedCart = localStorage.getItem('cart');
-    return savedCart ? JSON.parse(savedCart) : [];
-  });
+  const [cart, setCart] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const { currentUser } = useAuth();
 
+  // Get user's cart from Firebase
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cart));
-  }, [cart]);
+    if (!currentUser) {
+      setCart([]);
+      return;
+    }
+
+    setLoading(true);
+    const cartDocRef = doc(db, 'users', currentUser.uid, 'cart', 'items');
+
+    // Real-time listener for cart changes
+    const unsubscribe = onSnapshot(
+      cartDocRef,
+      (docSnapshot) => {
+        if (docSnapshot.exists()) {
+          setCart(docSnapshot.data().items || []);
+        } else {
+          setCart([]);
+        }
+        setLoading(false);
+      },
+      (error) => {
+        console.error('Error loading cart:', error);
+        setLoading(false);
+      }
+    );
+
+    return unsubscribe;
+  }, [currentUser]);
+
+  // Save cart to Firebase
+  const saveCartToFirebase = async (cartData) => {
+    if (!currentUser) return;
+
+    try {
+      const cartDocRef = doc(db, 'users', currentUser.uid, 'cart', 'items');
+      await setDoc(cartDocRef, { items: cartData });
+    } catch (error) {
+      console.error('Error saving cart:', error);
+    }
+  };
 
   const addToCart = (item, size, quantity = 1) => {
     setCart(prevCart => {
@@ -26,20 +73,29 @@ export const CartProvider = ({ children }) => {
         cartItem => cartItem.id === item.id && cartItem.size === size
       );
 
+      let updatedCart;
       if (existingItemIndex !== -1) {
         // Update quantity of existing item
-        const updatedCart = [...prevCart];
+        updatedCart = [...prevCart];
         updatedCart[existingItemIndex].quantity += quantity;
-        return updatedCart;
       } else {
         // Add new item with size and quantity
-        return [...prevCart, { ...item, size, quantity }];
+        updatedCart = [...prevCart, { ...item, size, quantity }];
       }
+
+      // Save to Firebase
+      saveCartToFirebase(updatedCart);
+      return updatedCart;
     });
   };
 
   const removeFromCart = (index) => {
-    setCart(prevCart => prevCart.filter((_, i) => i !== index));
+    setCart(prevCart => {
+      const updatedCart = prevCart.filter((_, i) => i !== index);
+      // Save to Firebase
+      saveCartToFirebase(updatedCart);
+      return updatedCart;
+    });
   };
 
   const updateQuantity = (index, newQuantity) => {
@@ -47,12 +103,22 @@ export const CartProvider = ({ children }) => {
     setCart(prevCart => {
       const updatedCart = [...prevCart];
       updatedCart[index].quantity = newQuantity;
+      // Save to Firebase
+      saveCartToFirebase(updatedCart);
       return updatedCart;
     });
   };
 
-  const clearCart = () => {
+  const clearCart = async () => {
     setCart([]);
+    if (currentUser) {
+      try {
+        const cartDocRef = doc(db, 'users', currentUser.uid, 'cart', 'items');
+        await deleteDoc(cartDocRef);
+      } catch (error) {
+        console.error('Error clearing cart:', error);
+      }
+    }
   };
 
   const getCartTotal = () => {
@@ -70,7 +136,8 @@ export const CartProvider = ({ children }) => {
     clearCart,
     getCartTotal,
     getCartCount,
-    updateQuantity
+    updateQuantity,
+    loading
   };
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;

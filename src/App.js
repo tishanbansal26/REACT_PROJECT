@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './contexts/AuthContext';
 import { CartProvider } from './contexts/CartContext';
 import Navbar from './components/Navbar';
@@ -11,6 +11,7 @@ import Contact from './components/Contact';
 import Cart from './components/Cart';
 import Checkout from './components/Checkout';
 import Auth from './components/Auth';
+import ProtectedRoute from './components/ProtectedRoute';
 import './App.css';
 
 function App() {
@@ -19,17 +20,35 @@ function App() {
       <AuthProvider>
         <CartProvider>
           <div className="App">
-            <Navbar />
             <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/about" element={<About />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/contact" element={<Contact />} />
-              <Route path="/cart" element={<Cart />} />
-              <Route path="/checkout" element={<Checkout />} />
+              {/* Public Route: Auth page (accessible to everyone) */}
               <Route path="/auth" element={<Auth />} />
+
+              {/* Protected Routes: require login */}
+              <Route
+                path="/*"
+                element={
+                  <ProtectedRoute
+                    element={
+                      <>
+                        <Navbar />
+                        <Routes>
+                          <Route path="/" element={<Home />} />
+                          <Route path="/about" element={<About />} />
+                          <Route path="/shop" element={<Shop />} />
+                          <Route path="/contact" element={<Contact />} />
+                          <Route path="/cart" element={<Cart />} />
+                          <Route path="/checkout" element={<Checkout />} />
+                          {/* Catch-all for unknown routes */}
+                          <Route path="*" element={<Navigate to="/" replace />} />
+                        </Routes>
+                        <Footer />
+                      </>
+                    }
+                  />
+                }
+              />
             </Routes>
-            <Footer />
           </div>
         </CartProvider>
       </AuthProvider>

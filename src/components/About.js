@@ -1,7 +1,8 @@
 import React from 'react';
 
 const About = () => {
-
+  const heroImage = 'https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80';
+  const storyImage = 'https://images.unsplash.com/photo-1606759615996-aa88304c4b1f?auto=format&fit=crop&w=800&q=80';
 
   return (
     <div className="about-page">
@@ -32,7 +33,7 @@ const About = () => {
             </div>
             <div className="col-lg-6">
               <img
-                src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=800&q=80"
+                src={heroImage}
                 alt="Fashion Workshop"
                 className="about-hero-image"
                 onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/CORELINE.png'; }}
@@ -48,7 +49,7 @@ const About = () => {
           <div className="row align-items-center">
             <div className="col-lg-6">
               <img
-                src="https://images.unsplash.com/photo-1606759615996-aa88304c4b1f?auto=format&fit=crop&w=800&q=80"
+                src={storyImage}
                 alt="Our Workshop"
                 className="about-story-image"
                 onError={(e) => { e.currentTarget.onerror = null; e.currentTarget.src = '/CORELINE.png'; }}
@@ -102,6 +103,20 @@ const About = () => {
           </div>
         </div>
       </section>
+
+      {/* Animation for upload message */}
+      <style>{`
+        @keyframes slideIn {
+          from {
+            transform: translateX(400px);
+            opacity: 0;
+          }
+          to {
+            transform: translateX(0);
+            opacity: 1;
+          }
+        }
+      `}</style>
     </div>
   );
 };

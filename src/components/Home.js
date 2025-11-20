@@ -62,8 +62,10 @@ const Home = () => {
           <div className="hero-content text-center">
             <h1 className="display-3 fw-bold mb-4">Welcome to Coreline</h1>
             <p className="lead mb-4">Discover our latest collection of premium streetwear</p>
-            <Link to="/shop" className="btn btn-lg btn-primary">
+            <Link to="/shop" className="btn btn-lg btn-shop-now">
+              <span className="shop-now-icon">🛍️</span>
               Shop Now
+              <span className="shop-now-arrow">→</span>
             </Link>
           </div>
         </div>
