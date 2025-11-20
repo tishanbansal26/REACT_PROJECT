@@ -83,13 +83,13 @@ const Footer = () => {
               <i className="bi bi-envelope-fill text-warning"></i> support@coreline.com
             </p>
             <div className="mt-2">
-              <a href="#" className="text-light me-3">
+              <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-light me-3">
                 <i className="bi bi-facebook fs-4"></i>
               </a>
-              <a href="#" className="text-light me-3">
+              <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-light me-3">
                 <i className="bi bi-instagram fs-4"></i>
               </a>
-              <a href="#" className="text-light me-3">
+              <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" className="text-light me-3">
                 <i className="bi bi-twitter-x fs-4"></i>
               </a>
             </div>

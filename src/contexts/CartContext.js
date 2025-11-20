@@ -2,10 +2,8 @@ import React, { createContext, useState, useContext, useEffect } from 'react';
 import { db } from '../firebase/config';
 import { useAuth } from './AuthContext';
 import {
-  collection,
   doc,
   setDoc,
-  getDoc,
   deleteDoc,
   onSnapshot
 } from 'firebase/firestore';
