@@ -214,6 +214,7 @@ const Contact = () => {
               <h4>Phone</h4>
               <p>
                 <a href="tel:+919603610000">+91 96036 10000</a><br />
+                <a href="tel:+919646716000">+91 96467 16000</a><br />
                 <small>Mon - Sat, 10am - 6pm</small>
               </p>
             </div>

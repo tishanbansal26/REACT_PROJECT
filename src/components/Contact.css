@@ -417,3 +417,11 @@
     border: 1px solid #e0e0e0;
   }
 }
+
+/* Small mobile tweaks */
+@media (max-width: 420px) {
+  .contact-form-card { padding: 0.75rem; }
+  .form-control, .form-select { font-size: 16px; padding: 0.6rem; }
+  .contact-hero h1 { font-size: 1.1rem; }
+  .contact-hero p { font-size: 0.85rem; }
+}

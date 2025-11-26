@@ -22,7 +22,7 @@ const Home = () => {
       price: 59.99,
       image: 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?auto=format&fit=crop&w=800&q=80',
       description: 'New Arrival | Limited Edition',
-      availableSizes: ['M', 'L', 'XL']
+      availableSizes: ['S','M', 'L', 'XL']
     },
     {
       id: 3,

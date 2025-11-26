@@ -44,8 +44,8 @@ const Checkout = () => {
     <div className="container my-5">
       <h2 className="mb-4">Checkout</h2>
       <div className="row">
-        <div className="col-md-8">
-          <div className="card">
+        <div className="col-lg-8 col-md-8 col-12">
+          <div className="card mb-4 mb-lg-0">
             <div className="card-body">
               <h4 className="card-title mb-3">Shipping Information</h4>
               <form onSubmit={handleSubmit}>
@@ -165,16 +165,18 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-        <div className="col-md-4">
+        <div className="col-lg-4 col-md-4 col-12">
           <div className="card">
             <div className="card-body">
               <h4 className="card-title mb-3">Order Summary</h4>
-              {cart.map((item, index) => (
-                <div key={index} className="d-flex justify-content-between mb-2">
-                  <span>{item.name}</span>
-                  <span>₹{item.price}</span>
-                </div>
-              ))}
+              <div style={{ maxHeight: '300px', overflowY: 'auto' }}>
+                {cart.map((item, index) => (
+                  <div key={index} className="d-flex justify-content-between mb-2">
+                    <span>{item.name}</span>
+                    <span>₹{item.price}</span>
+                  </div>
+                ))}
+              </div>
               <hr />
               <div className="d-flex justify-content-between">
                 <strong>Total:</strong>

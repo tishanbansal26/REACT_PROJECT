@@ -7,8 +7,8 @@ const Footer = () => {
       <div className="container">
         <div className="row">
           {/* Logo & About */}
-          <div className="col-md-4 mb-4">
-            <img src="/CORELINE.png" alt="Coreline Logo" height="70" className="mb-3" />
+          <div className="col-lg-4 col-md-6 col-12 mb-4">
+            <img src="/CORELINE.png" alt="Coreline Logo" height="70" className="mb-3" style={{ maxWidth: '100%', height: 'auto' }} />
             <p>
               CORELINE is where style meets comfort. We design premium quality T-shirts
               crafted for confidence, durability, and everyday wear.
@@ -16,7 +16,7 @@ const Footer = () => {
           </div>
 
           {/* Quick Links */}
-          <div className="col-md-2 mb-4">
+          <div className="col-lg-2 col-md-6 col-12 mb-4">
             <h5 className="fw-bold text-warning">Quick Links</h5>
             <ul className="list-unstyled">
               <li>
@@ -43,7 +43,7 @@ const Footer = () => {
           </div>
 
           {/* Customer */}
-          <div className="col-md-3 mb-4">
+          <div className="col-lg-3 col-md-6 col-12 mb-4">
             <h5 className="fw-bold text-warning">Customer</h5>
             <ul className="list-unstyled">
               <li>
@@ -57,12 +57,12 @@ const Footer = () => {
                 </Link>
               </li>
               <li>
-                <Link to="#" className="text-light text-decoration-none">
+                <Link to="/" className="text-light text-decoration-none">
                   FAQs
                 </Link>
               </li>
               <li>
-                <Link to="#" className="text-light text-decoration-none">
+                <Link to="/" className="text-light text-decoration-none">
                   Privacy Policy
                 </Link>
               </li>
@@ -70,7 +70,7 @@ const Footer = () => {
           </div>
 
           {/* Contact */}
-          <div className="col-md-3 mb-4">
+          <div className="col-lg-3 col-md-6 col-12 mb-4">
             <h5 className="fw-bold text-warning">Get in Touch</h5>
             <p className="mb-1">
               <i className="bi bi-geo-alt-fill text-warning"></i> Opp. More Supermarket, Mansa
